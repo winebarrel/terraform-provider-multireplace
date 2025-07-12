@@ -25,7 +25,7 @@ output "london_bridge" {
     "London Bridge Is Falling Down, Falling down, falling down",
     { Falling = "Winding", falling = "jumping" }
   )
-  #=> london_bridge = "London Bridge Is Winding Down, Winding down, jumping down"
+  #=> "London Bridge Is Winding Down, Winding down, jumping down"
 
   # value = provider::multireplace::multireplace(
   #   "London Bridge Is Falling Down, Falling down, falling down",
@@ -39,7 +39,7 @@ output "birmingham_bridge" {
     "Birmingham Bridge Is Falling Down, Falling down, falling down",
     { "/(?i)falling/" = "rising", "/(?i)down/" = "up" }
   )
-  #=> birmingham_bridge = "Birmingham Bridge Is rising up, rising up, rising up"
+  #=> "Birmingham Bridge Is rising up, rising up, rising up"
 }
 
 #########################
@@ -61,7 +61,7 @@ output "html" {
     ---
     ${local.jsonunescape_html}
   EOT
-  #=> html = <<-EOT
+  #=> <<-EOT
   #       {"link":"\u003ca href=\"https://example.com?foo=bar\u0026zoo=baz\"\u003eOpen\u003c/a\u003e"}
   #       ---
   #       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
