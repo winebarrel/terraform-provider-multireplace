@@ -29,6 +29,10 @@ tf-plan: build dev.tfrc
 tf-apply: build dev.tfrc
 	TF_CLI_CONFIG_FILE=dev.tfrc terraform apply -auto-approve
 
+.PHONY: tf-console
+tf-console: build dev.tfrc
+	TF_CLI_CONFIG_FILE=dev.tfrc terraform console
+
 .PHONY: tf-clean
 tf-clean: clean
 	rm -f dev.tfrc terraform.tfstate*
