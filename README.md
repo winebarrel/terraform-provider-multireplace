@@ -16,6 +16,10 @@ terraform {
   }
 }
 
+#########################
+# multireplace function
+#########################
+
 #=> london_bridge = "London Bridge Is Winding Down, Winding down, jumping down"
 output "london_bridge" {
   value = provider::multireplace::multireplace(
@@ -37,6 +41,10 @@ output "birmingham_bridge" {
     { "/(?i)falling/" = "rising", "/(?i)down/" = "up" }
   )
 }
+
+#########################
+# jsonunescape function
+#########################
 
 #=> html = <<-EOT
 #       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
