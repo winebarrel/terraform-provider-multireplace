@@ -27,17 +27,17 @@ output "birmingham_bridge" {
 }
 
 locals {
-  html = provider::multireplace::jsonunescape(
-    jsonencode({
-      link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
-    })
-  )
+  jsonencode_html = jsonencode({
+    link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
+  })
+
+  jsonunescape_html = provider::multireplace::jsonunescape(local.jsonencode_html)
 }
 
 output "html" {
   value = <<-EOT
+    ${local.jsonencode_html}
     ---
-    ${local.html}
-    ---
+    ${local.jsonunescape_html}
   EOT
 }
