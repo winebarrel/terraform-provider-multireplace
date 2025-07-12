@@ -25,3 +25,11 @@ output "birmingham_bridge" {
     { "/(?i)falling/" = "rising", "/(?i)down/" = "up" }
   )
 }
+
+output "html" {
+  value = provider::multireplace::jsonunescape(
+    jsonencode({
+      link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
+    })
+  )
+}

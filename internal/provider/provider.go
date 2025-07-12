@@ -58,6 +58,7 @@ func (p *MultiReplaceProvider) DataSources(ctx context.Context) []func() datasou
 func (p *MultiReplaceProvider) Functions(ctx context.Context) []func() function.Function {
 	return []func() function.Function{
 		NewMultiRepaceFunction,
+		NewJsonUnescape,
 	}
 }
 
