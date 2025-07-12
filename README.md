@@ -47,24 +47,24 @@ output "birmingham_bridge" {
 #########################
 
 locals {
-  html = provider::multireplace::jsonunescape(
-    # see https://developer.hashicorp.com/terraform/language/functions/jsonencode
-    jsonencode({
-      link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
-    })
-  )
+  # see https://developer.hashicorp.com/terraform/language/functions/jsonencode
+  jsonencode_html = jsonencode({
+    link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
+  })
+
+  jsonunescape_html = provider::multireplace::jsonunescape(local.jsonencode_html)
 }
 
 #=> html = <<-EOT
+#       {"link":"\u003ca href=\"https://example.com?foo=bar\u0026zoo=baz\"\u003eOpen\u003c/a\u003e"}
 #       ---
 #       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
-#       ---
 #   EOT
 output "html" {
   value = <<-EOT
+    ${local.jsonencode_html}
     ---
-    ${local.html}
-    ---
+    ${local.jsonunescape_html}
   EOT
 }
 ```
