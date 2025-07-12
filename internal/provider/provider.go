@@ -10,28 +10,28 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
 
-var _ provider.ProviderWithFunctions = &CronplanProvider{}
+var _ provider.ProviderWithFunctions = &MultiReplaceProvider{}
 
-type CronplanProvider struct {
+type MultiReplaceProvider struct {
 	version string
 }
 
-type CronplanProviderModel struct {
+type MultiReplaceProviderModel struct {
 }
 
-func (p *CronplanProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+func (p *MultiReplaceProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "multireplace"
 	resp.Version = p.version
 }
 
-func (p *CronplanProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *MultiReplaceProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{},
 	}
 }
 
-func (p *CronplanProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data CronplanProvider
+func (p *MultiReplaceProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data MultiReplaceProvider
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -43,19 +43,19 @@ func (p *CronplanProvider) Configure(ctx context.Context, req provider.Configure
 	resp.ResourceData = data
 }
 
-func (p *CronplanProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *MultiReplaceProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		// No Resources
 	}
 }
 
-func (p *CronplanProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+func (p *MultiReplaceProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		// No DataSources
 	}
 }
 
-func (p *CronplanProvider) Functions(ctx context.Context) []func() function.Function {
+func (p *MultiReplaceProvider) Functions(ctx context.Context) []func() function.Function {
 	return []func() function.Function{
 		NewMultiRepaceFunction,
 	}
@@ -63,7 +63,7 @@ func (p *CronplanProvider) Functions(ctx context.Context) []func() function.Func
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &CronplanProvider{
+		return &MultiReplaceProvider{
 			version: version,
 		}
 	}
