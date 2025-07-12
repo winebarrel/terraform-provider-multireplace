@@ -46,16 +46,26 @@ output "birmingham_bridge" {
 # jsonunescape function
 #########################
 
-#=> html = <<-EOT
-#       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
-#   EOT
-output "html" {
-  value = format(" %s\n", provider::multireplace::jsonunescape(
+locals {
+  html = provider::multireplace::jsonunescape(
     # see https://developer.hashicorp.com/terraform/language/functions/jsonencode
     jsonencode({
       link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
     })
-  ))
+  )
+}
+
+#=> html = <<-EOT
+#       ---
+#       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
+#       ---
+#   EOT
+output "html" {
+  value = <<-EOT
+    ---
+    ${local.html}
+    ---
+  EOT
 }
 ```
 
