@@ -16,6 +16,7 @@ terraform {
   }
 }
 
+#=> london_bridge = "London Bridge Is Winding Down, Winding down, jumping down"
 output "london_bridge" {
   value = provider::multireplace::multireplace(
     "London Bridge Is Falling Down, Falling down, falling down",
@@ -29,6 +30,7 @@ output "london_bridge" {
   # )
 }
 
+#=> birmingham_bridge = "Birmingham Bridge Is rising up, rising up, rising up"
 output "birmingham_bridge" {
   value = provider::multireplace::multireplace(
     "Birmingham Bridge Is Falling Down, Falling down, falling down",
@@ -36,12 +38,16 @@ output "birmingham_bridge" {
   )
 }
 
+#=> html = <<-EOT
+#       {"link":"<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"}
+#   EOT
 output "html" {
-  value = provider::multireplace::jsonunescape(
+  value = format(" %s\n", provider::multireplace::jsonunescape(
+    # see https://developer.hashicorp.com/terraform/language/functions/jsonencode
     jsonencode({
       link = "<a href=\"https://example.com?foo=bar&zoo=baz\">Open</a>"
     })
-  )
+  ))
 }
 ```
 
